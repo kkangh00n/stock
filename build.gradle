@@ -20,6 +20,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//test contrainer
+	testImplementation "org.testcontainers:testcontainers:1.19.2"
+	testImplementation "org.testcontainers:junit-jupiter:1.19.2"
+	testImplementation "org.testcontainers:mysql:1.19.2"
+	testImplementation 'org.testcontainers:jdbc:1.18.3'
 }
 
 tasks.named('test') {
