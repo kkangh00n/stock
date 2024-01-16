@@ -17,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-@Transactional
 class StockServiceTest {
 
     @Autowired
@@ -28,7 +27,7 @@ class StockServiceTest {
 
     @BeforeEach
     public void before() {
-        stockRepository.save(new Stock(1L, 100L));
+        stockRepository.saveAndFlush(new Stock(1L, 100L));
     }
 
     @AfterEach
@@ -54,16 +53,14 @@ class StockServiceTest {
         CountDownLatch latch = new CountDownLatch(threadCount);
 
         for (int i = 0; i < threadCount; i++) {
-
             executorService.submit(() -> {
-                    try {
-                        stockService.decrease(1L, 1L);
-                    } finally {
-                        //latch 숫자를 줄여나감
-                        latch.countDown();
-                    }
+                try {
+                    stockService.decrease(1L, 1L);
+                } finally {
+                    //latch 숫자를 줄여나감
+                    latch.countDown();
                 }
-            );
+            });
         }
 
         //latch 숫자가 모두 줄어들 때까지 기다림
