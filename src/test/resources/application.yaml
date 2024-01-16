@@ -2,6 +2,8 @@ spring:
   datasource:
     url: jdbc:tc:mysql:8:///
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    hikari:
+      maximum-pool-size: 40
   jpa:
     hibernate:
       ddl-auto: create
